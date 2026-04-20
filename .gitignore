@@ -1,0 +1,20 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+bin/
+
+# Environment variables
+.env
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+
+# Docker volumes (if you eventually mount local folders for db data)
+docker-data/
