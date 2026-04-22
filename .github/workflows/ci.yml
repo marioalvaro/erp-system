@@ -1,0 +1,30 @@
+name: ERP CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.26.1'
+        cache: true
+
+    - name: Install dependencies
+      run: go mod download
+
+    - name: Build
+      run: go build -v ./cmd/server/...
+
+    - name: Run Tests
+      run: go test -v ./...
