@@ -8,8 +8,6 @@
 *.out
 bin/
 
-# Other Files
-001_initial_schema.sql
 
 
 # Environment variables
