@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq" // PostgreSQL driver
+	_ "github.com/lib/pq"
 	"github.com/marioalvaro/erp-system/internal/auth"
 	"github.com/marioalvaro/erp-system/internal/users"
 )
@@ -54,15 +54,12 @@ func main() {
 	mux.HandleFunc("POST /api/v1/auth/register", userHandler.RegisterUser)
 	mux.HandleFunc("POST /api/v1/auth/login", userHandler.LoginUser)
 
-	// Protected routes
 	mux.Handle("GET /api/v1/users/profile", auth.AuthMiddleware(http.HandlerFunc(userHandler.GetProfile)))
 
-	// Example of Role-protected route
 	mux.Handle("GET /api/v1/admin/dashboard", auth.AuthMiddleware(auth.RequireRole("Administrator")(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Welcome to the Admin Dashboard!"))
 	}))))
 
-	// 5. Start the server, passing the 'mux' instead of 'nil'
 	fmt.Println("Starting ERP Server on :8080...")
 	if err := http.ListenAndServe(":8080", mux); err != nil {
 		log.Fatalf("Server failed to start: %v", err)

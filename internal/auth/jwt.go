@@ -11,7 +11,6 @@ import (
 
 var jwtKey = []byte(os.Getenv("JWT_SECRET"))
 
-// Claims defines the payload of our JWT
 type Claims struct {
 	UserID uuid.UUID `json:"user_id"`
 	Roles  []string  `json:"roles"`
